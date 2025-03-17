@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Dépenses</title>
+    
+</head>
+<style>
+    /* Définir le fond bleu pour le haut de l'écran */
+.header-background {
+    width: 100%; /* La section occupe toute la largeur de l'écran */
+    height: 30vh; /* La section occupe 30% de la hauteur de l'écran */
+    background-color: #3498db; /* Couleur bleue */
+    color: white; /* Couleur du texte en blanc */
+    text-align: center; /* Centrer le texte horizontalement */
+}
+
+/* Style pour le texte à l'intérieur */
+h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* Centrer le contenu */
+button {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Style du bouton */
+button {
+    background-color: #3498db; /* Bleu */
+    color: white; /* Texte blanc */
+    border: none; /* Supprimer la bordure */
+    padding: 15px 30px; /* Espacement interne */
+    font-size: 1.2em; /* Taille du texte */
+    cursor: pointer; /* Curseur de la souris */
+    border-radius: 8px; /* Coins arrondis */
+    transition: background 0.3s, transform 0.2s; /* Animation fluide */
+}
+
+/* Effet au survol */
+button {
+    background-color: #2980b9; /* Bleu plus foncé */
+    transform: scale(1.05); /* Légère agrandissement */
+}
+
+/* Effet au clic */
+button {
+    transform: scale(0.95); /* Réduction temporaire */
+}
+
+/* Conteneur des boutons */
+button {
+    display: flex; /* Active Flexbox */
+    flex-direction: column; /* Afficher en colonne */
+    align-items: center; /* Centrer horizontalement */
+    gap: 15px; /* Espacement entre les boutons */
+    margin-top: 50px; /* Marge en haut */
+}
+
+/* Style des boutons */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
+    width: 200px; /* Largeur des boutons */
+    text-align: center;
+}
+
+/* Effet au survol */
+button {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Effet au clic */
+button {
+    transform: scale(0.95);
+}
+
+    /* Conteneur des boutons */
+.navi {
+    width: 100%; /* Occupe toute la largeur */
+    text-align: right; /* Aligne le contenu à droite */
+    padding: 20px; /* Ajoute un peu d’espace */
+
+
+/* Style des boutons */
+.navi {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 10px; /* Ajoute un peu d’espace entre les boutons */
+}
+
+}
+
+
+
+</style>
+<body>
+    <div class="header-background">
+        <h1>Bienvenue</h1>
+        <p>Bienvenue dans votre centre de contrôle de vos Dépenses</p>
+    </div>
+    <div class="header-another">
+        <button class="navi">Restaurant</button>
+        <button class="navi">Transport</button>
+        <button class="navi">Cadeaux</button>
+        <button class="navi">Autre...</button>
+    </div>
+</body>
+</html>
