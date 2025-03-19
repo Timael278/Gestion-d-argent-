@@ -1,124 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Dépenses</title>
-    
+    <style>
+
+                /* Bouton pour ouvrir la pop-up */
+        .open-popup {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Conteneur de la pop-up (invisible par défaut) */
+        .popup-container {
+            display: none; /* Caché au départ */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenu de la pop-up */
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Bouton pour fermer la pop-up */
+        .close-popup {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Définir le fond bleu pour le haut de l'écran */
+        .header-background {
+            width: 100%;
+            height: 30vh;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style du texte */
+        h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        /* Conteneur des boutons de navigation */
+        .header-another {
+            display: flex;
+            flex-direction: column;
+            justify-content: center ;
+            gap: 20px;
+            margin-top: 4%;
+            width: 25%;
+            margin-left: 74%;
+        }
+
+        /* Style des boutons */
+        .navi, .base {
+            color: white;
+            background-color: #2ecc71;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        /* Effet au survol */
+        .navi:hover, .base:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        /* Effet au clic */
+        .navi:active, .base:active {
+            transform: scale(0.95);
+        }
+
+        /* Conteneur des boutons en bas */
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
-<style>
-    /* Définir le fond bleu pour le haut de l'écran */
-.header-background {
-    width: 100%; /* La section occupe toute la largeur de l'écran */
-    height: 30vh; /* La section occupe 30% de la hauteur de l'écran */
-    background-color: #3498db; /* Couleur bleue */
-    color: white; /* Couleur du texte en blanc */
-    text-align: center; /* Centrer le texte horizontalement */
-}
-
-/* Style pour le texte à l'intérieur */
-h1 {
-    font-size: 2em;
-    margin: 0;
-}
-
-p {
-    font-size: 1.2em;
-    margin-top: 10px;
-}
-
-/* Centrer le contenu */
-button {
-    text-align: center;
-    margin-top: 50px;
-}
-
-/* Style du bouton */
-button {
-    border: none; /* Supprimer la bordure */
-    font-size: 1.2em; /* Taille du texte */
-    cursor: pointer; /* Curseur de la souris */
-    border-radius: 8px; /* Coins arrondis */
-    transition: background 0.3s, transform 0.2s; /* Animation fluide */
-}
-
-/* Effet au survol */
-button {
-    transform: scale(1.05); /* Légère agrandissement */
-}
-
-/* Effet au clic */
-button {
-    transform: scale(0.95); /* Réduction temporaire */
-}
-
-/* Conteneur des boutons */
-button {
-    display: flex; /* Active Flexbox */
-    flex-direction: column; /* Afficher en colonne */
-    align-items: center; /* Centrer horizontalement */
-    gap: 10%; /* Ajoute un ace fixe entre chaque bouton */
-    margin-top: 49px; /* Marge en haut */
-}
-
-/* Style des boutons */
-button {
-    color: black;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.3s, transform 0.2s;
-    width: 100px; /* Largeur des boutons */
-    text-align: center;
-}
-
-/* Effet au survol */
-button {
-    transform: scale(1.05);
-}
-
-/* Effet au clic */
-button {
-    transform: scale(0.95);
-}
-
-button{
-    margin-left: 80%;
-}
-
-    /* Conteneur des boutons */
-.navi {
-    width: 20%; /* Occupe toute la largeur */
-    text-align: right; /* Aligne le contenu à droite */
-
-
-/* Style des boutons */
-.navi {
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    border-radius: 8px;
-}
-
-}
-
-
-
-</style>
 <body>
     <div class="header-background">
         <h1>Bienvenue</h1>
         <p>Bienvenue dans votre centre de contrôle de vos Dépenses</p>
+            <div class="footer-buttons">
+                <button class="base" onclick="openPopup('popup1')">Comptes</button>
+                <button class="base" onclick="openPopup('popup2')">Catégories</button>
+                <button class="base" onclick="openPopup('popup3')">Transaction</button>
+                <button class="base" onclick="openPopup('popup4')">Aperçu</button> 
+            </div>
     </div>
+
+        <!-- Pop-up 1 -->
+    <div class="popup-container" id="popup1">
+        <div class="popup-content">
+            <h2>Pop-up 1</h2>
+            <p>Bienvenue dans la première pop-up !</p>
+            <button class="close-popup" onclick="closePopup('popup1')">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Pop-up 2 -->
+    <div class="popup-container" id="popup2">
+        <div class="popup-content">
+            <h2>Pop-up 2</h2>
+            <p>Voici une deuxième pop-up avec un autre message.</p>
+            <button class="close-popup" onclick="closePopup('popup2')">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Pop-up 3 -->
+    <div class="popup-container" id="popup3">
+        <div class="popup-content">
+            <h2>Pop-up 3</h2>
+            <p>Cette troisième pop-up est là pour compléter l'exemple !</p>
+            <button class="close-popup" onclick="closePopup('popup3')">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Pop-up 4 -->
+    <div class="popup-container" id="popup4">
+        <div class="popup-content">
+            <h2>Pop-up 4</h2>
+            <p>La quatrième pop-up est encore plus cool !</p>
+            <button class="close-popup" onclick="closePopup('popup4')">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour ouvrir une pop-up spécifique
+        function openPopup(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+
+        // Fonction pour fermer une pop-up spécifique
+        function closePopup(id) {
+            document.getElementById(id).style.display = "none";
+        }
+    </script>
+
     <div class="header-another">
-        <button class="navi">Restaurant</button>
-        <button class="navi">Transport</button>
-        <button class="navi">Cadeaux</button>
-        <button class="navi">Autre...</button>
+        <button class="navi">Restaurant : 30%</button>
+        <button class="navi">Transport : 20%</button>
+        <button class="navi">Cadeaux : 30%</button>
+        <button class="navi">Autre... : 20%</button>
     </div>
 </body>
 </html>
