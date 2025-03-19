@@ -3,187 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Dépenses</title>
+    <title>Gestion des Finances</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-
-                /* Bouton pour ouvrir la pop-up */
-        .open-popup {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            background-color: #3498db;
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
         }
-
-        /* Conteneur de la pop-up (invisible par défaut) */
-        .popup-container {
-            display: none; /* Caché au départ */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Contenu de la pop-up */
-        .popup-content {
-            background: white;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
-            text-align: center;
-            width: 300px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
         }
-
-        /* Bouton pour fermer la pop-up */
-        .close-popup {
-            background: red;
+        button {
+            background: #4CAF50;
             color: white;
             border: none;
             padding: 10px;
-            margin-top: 10px;
+            margin: 10px;
             cursor: pointer;
             border-radius: 5px;
+            transition: 0.3s;
         }
-
-        /* Définir le fond bleu pour le haut de l'écran */
-        .header-background {
-            width: 100%;
-            height: 30vh;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
+        button:hover {
+            background: #45a049;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
         }
-
-        /* Style du texte */
-        h1 {
-            font-size: 2em;
-            margin: 0;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-
-        /* Conteneur des boutons de navigation */
-        .header-another {
-            display: flex;
-            flex-direction: column;
-            justify-content: center ;
-            gap: 20px;
-            margin-top: 4%;
-            width: 25%;
-            margin-left: 74%;
-        }
-
-        /* Style des boutons */
-        .navi, .base {
-            color: white;
-            background-color: #2ecc71;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        /* Effet au survol */
-        .navi:hover, .base:hover {
-            background-color: #27ae60;
-            transform: scale(1.05);
-        }
-
-        /* Effet au clic */
-        .navi:active, .base:active {
-            transform: scale(0.95);
-        }
-
-        /* Conteneur des boutons en bas */
-        .footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 50px;
+        .popup-content {
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="header-background">
-        <h1>Bienvenue</h1>
-        <p>Bienvenue dans votre centre de contrôle de vos Dépenses</p>
-            <div class="footer-buttons">
-                <button class="base" onclick="openPopup('popup1')">Comptes</button>
-                <button class="base" onclick="openPopup('popup2')">Catégories</button>
-                <button class="base" onclick="openPopup('popup3')">Transaction</button>
-                <button class="base" onclick="openPopup('popup4')">Aperçu</button> 
-            </div>
+    <div class="container">
+        <h1>Gestion des Finances</h1>
+        <h2>Solde actuel: <span id="solde">0</span>€</h2>
+        <button onclick="openPopup()">Ajouter une transaction</button>
+        <canvas id="graphique"></canvas>
     </div>
-
-        <!-- Pop-up 1 -->
-    <div class="popup-container" id="popup1">
+    
+    <div class="popup" id="popup">
         <div class="popup-content">
-            <h2>Pop-up 1</h2>
-            <p>Bienvenue dans la première pop-up !</p>
-            <button class="close-popup" onclick="closePopup('popup1')">Fermer</button>
+            <h2>Nouvelle Transaction</h2>
+            <input type="number" id="montant" placeholder="Montant" required>
+            <select id="categorie">
+                <option value="Cadeaux">Cadeaux</option>
+                <option value="Santé">Santé</option>
+                <option value="Alimentation">Alimentation</option>
+                <option value="Loisirs">Loisirs</option>
+            </select>
+            <button onclick="ajouterTransaction()">Ajouter</button>
+            <button onclick="closePopup()">Annuler</button>
         </div>
     </div>
-
-    <!-- Pop-up 2 -->
-    <div class="popup-container" id="popup2">
-        <div class="popup-content">
-            <h2>Pop-up 2</h2>
-            <p>Voici une deuxième pop-up avec un autre message.</p>
-            <button class="close-popup" onclick="closePopup('popup2')">Fermer</button>
-        </div>
-    </div>
-
-    <!-- Pop-up 3 -->
-    <div class="popup-container" id="popup3">
-        <div class="popup-content">
-            <h2>Pop-up 3</h2>
-            <p>Cette troisième pop-up est là pour compléter l'exemple !</p>
-            <button class="close-popup" onclick="closePopup('popup3')">Fermer</button>
-        </div>
-    </div>
-
-    <!-- Pop-up 4 -->
-    <div class="popup-container" id="popup4">
-        <div class="popup-content">
-            <h2>Pop-up 4</h2>
-            <p>La quatrième pop-up est encore plus cool !</p>
-            <button class="close-popup" onclick="closePopup('popup4')">Fermer</button>
-        </div>
-    </div>
-
+    
     <script>
-        // Fonction pour ouvrir une pop-up spécifique
-        function openPopup(id) {
-            document.getElementById(id).style.display = "flex";
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        
+        function openPopup() {
+            document.getElementById('popup').style.display = 'flex';
         }
-
-        // Fonction pour fermer une pop-up spécifique
-        function closePopup(id) {
-            document.getElementById(id).style.display = "none";
+        
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
         }
+        
+        function ajouterTransaction() {
+            let montant = parseFloat(document.getElementById('montant').value);
+            let categorie = document.getElementById('categorie').value;
+            if (isNaN(montant)) return;
+            transactions.push({ montant, categorie });
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            updateUI();
+            closePopup();
+        }
+        
+        function updateUI() {
+            let solde = transactions.reduce((acc, t) => acc + t.montant, 0);
+            document.getElementById('solde').innerText = solde;
+            updateGraphique();
+        }
+        
+        function updateGraphique() {
+            let categories = {};
+            transactions.forEach(t => {
+                categories[t.categorie] = (categories[t.categorie] || 0) + t.montant;
+            });
+            let ctx = document.getElementById('graphique').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(categories),
+                    datasets: [{
+                        data: Object.values(categories),
+                        backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
+                    }]
+                }
+            });
+        }
+        
+        updateUI();
     </script>
-
-    <div class="header-another">
-        <button class="navi">Restaurant : 30%</button>
-        <button class="navi">Transport : 20%</button>
-        <button class="navi">Cadeaux : 30%</button>
-        <button class="navi">Autre... : 20%</button>
-    </div>
 </body>
 </html>
